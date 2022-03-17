@@ -5,3 +5,14 @@ export type TnavMenu = {
   name: string
   route: string
 }
+
+export type TSong = {
+  name: string
+  duration: number
+  url: string
+  artist?: string
+}
+export type TArtistData = {
+  name: string
+  songs: TSong[]
+}
