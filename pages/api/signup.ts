@@ -7,10 +7,13 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../lib/prisma'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  //! generate salt
   const salt = await bcrypt.genSaltSync(10)
+  //! get email and password from body for login
   const { email, password } = req.body
   let user
   try {
+    //! create user with prisma client and hash given password
     user = await prisma.user.create({
       data: {
         email,
@@ -22,6 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json({ error: 'user already exixst' })
     return
   }
+  //! generate token for user with user informaton
   const token = jwt.sign(
     {
       email: user.email,
@@ -31,6 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     'hello',
     { expiresIn: '8h' }
   )
+  //! set header for cookie
   res.setHeader(
     'Set-cookie',
     cookie.serialize('TRAX_ACCESS_TOKEN', token, {
@@ -41,5 +46,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       secure: process.env.NODE_ENV === 'production'
     })
   )
+  //! response with user
   res.json(user)
 }

@@ -1,8 +1,9 @@
+import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
-import prisma from '../lib/prisma'
 import { artistsData } from './songsData'
 
+const prisma = new PrismaClient()
 const run = async () => {
   await Promise.all(
     //! loop trough data and create users, each user creates song

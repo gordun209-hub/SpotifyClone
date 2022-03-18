@@ -1,9 +1,15 @@
 import 'reset-css'
 
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react' //Import Component type
+import type { NextComponentType } from 'next'
 import type { AppProps } from 'next/app'
 
 import PlayerLayout from '../components/PlayerLayout'
+
+//Add custom appProp type with using union in type
+type CustomAppProps = AppProps & {
+  Component: NextComponentType & { authPage?: boolean } // add auth type
+}
 
 const theme = extendTheme({
   colors: {
@@ -32,11 +38,15 @@ const theme = extendTheme({
     }
   }
 })
-const MyApp = ({ Component, pageProps }: AppProps) => (
+const MyApp = ({ Component, pageProps }: CustomAppProps) => (
   <ChakraProvider theme={theme}>
-    <PlayerLayout>
+    {Component.authPage ? (
       <Component {...pageProps} />
-    </PlayerLayout>
+    ) : (
+      <PlayerLayout>
+        <Component {...pageProps} />
+      </PlayerLayout>
+    )}
   </ChakraProvider>
 )
 
