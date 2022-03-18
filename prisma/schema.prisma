@@ -38,7 +38,6 @@ model Artist {
   updatedAt DateTime @updatedAt
   songs     Song[]
   name      String   @unique
-
 }
 
 model Playlist {

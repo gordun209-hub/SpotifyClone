@@ -1,23 +1,26 @@
-import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
+import prisma from '../lib/prisma'
 import { artistsData } from './songsData'
-
-const prisma = new PrismaClient()
 
 const run = async () => {
   await Promise.all(
+    //! loop trough data and create users, each user creates song
     artistsData.map(async artist => {
+      //! upsert means if user exists, update, if not, create
       return prisma.artist.upsert({
+        // where condition to find user by name
         where: { name: artist.name },
         update: {},
+        // create new user with name and songs
         create: {
           name: artist.name,
+          //* find and create songs for each user
           songs: {
-            create: artist.songs.map(song => ({
-              name: song.name,
-              duration: song.duration,
-              url: song.url
+            create: artist.songs.map(({ name, url, duration }) => ({
+              name,
+              duration,
+              url
             }))
           }
         }
