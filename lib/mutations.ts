@@ -1,8 +1,8 @@
 import fetcher from './fetcher'
 
-export const auth = (
-  mode: 'signin' | 'signup',
-  body: { email: string; password: string }
-) => {
+type modeType = 'signin' | 'signup'
+type body = { email: string; password: string }
+
+export const auth = (mode: modeType, body: body) => {
   return fetcher(`/${mode}`, body)
 }

@@ -6,7 +6,8 @@ import { useSWRConfig } from 'swr'
 
 import { auth } from '../lib/mutations'
 
-const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
+type Mode = 'signin' | 'signup'
+const AuthForm: FC<{ mode: Mode }> = ({ mode }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -14,8 +15,8 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    const user = await auth(mode, { email, password })
-    console.log(user.body)
+    //! call auth function with mode and credentials
+    await auth(mode, { email, password })
     setIsLoading(false)
     router.push('/')
   }
