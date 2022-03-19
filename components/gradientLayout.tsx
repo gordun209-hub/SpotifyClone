@@ -4,7 +4,7 @@ import { Image } from '@chakra-ui/react'
 
 type GradientLayoutProps = {
   color: string
-  children: JSX.Element
+  children: JSX.Element[]
   image: string
   subtitle: string
   title: string
@@ -43,6 +43,7 @@ const GradientLayout = ({
           <Text fontSize={'x-small'}>{description}</Text>
         </Box>
       </Flex>
+      <Box paddingY={'50px'}>{children}</Box>
     </Box>
   )
 }

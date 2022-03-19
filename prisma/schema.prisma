@@ -12,6 +12,8 @@ datasource db {
 }
 
 model User {
+  firstName String
+  lastName  String
   id        Int        @id @default(autoincrement())
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt

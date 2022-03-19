@@ -104,7 +104,13 @@ const Sidebar = () => {
             {playlists.map((playlist: any) => (
               <ListItem key={playlist.id} paddingX='20px'>
                 <LinkBox>
-                  <NextLink passHref href='/'>
+                  <NextLink
+                    passHref
+                    href={{
+                      pathname: '/playlist/[id]',
+                      query: { id: playlist.id }
+                    }}
+                  >
                     <LinkOverlay>{playlist.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>
