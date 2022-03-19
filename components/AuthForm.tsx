@@ -2,20 +2,24 @@ import { Box, Button, Flex, Input } from '@chakra-ui/react'
 import NextImage from 'next/image'
 import { useRouter } from 'next/router'
 import { FC, SyntheticEvent, useState } from 'react'
-import { useSWRConfig } from 'swr'
 
+// import { useSWRConfig } from 'swr'
 import { auth } from '../lib/mutations'
 
 type Mode = 'signin' | 'signup'
 const AuthForm: FC<{ mode: Mode }> = ({ mode }) => {
+  //! initialize states for email and password and also for loading state
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  //! 0------------------------------------------------------------------0
   const router = useRouter()
+  //! async function for submitting data start with setting loading state to true
+  //! just make the request, auth function calls fetcher function with mode and {password,email}
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    //! call auth function with mode and credentials
+    //! call auth function with mode and credentials, also set loading state to false and push user to home page
     await auth(mode, { email, password })
     setIsLoading(false)
     router.push('/')

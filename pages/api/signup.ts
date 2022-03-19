@@ -21,8 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     })
   } catch (e) {
-    res.status(401)
-    res.json({ error: 'user already exixst' })
+    res.status(401).json({ error: 'user already exixst' })
     return
   }
   //! generate token for user with user informaton

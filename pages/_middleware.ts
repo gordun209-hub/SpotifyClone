@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-
+//! Middeware for protection against CSRF attacks
 const signedinPages = ['/', '/playlist', '/library']
 
 export default function middleware(req: NextRequest) {
