@@ -4,7 +4,7 @@ import { Image } from '@chakra-ui/react'
 
 type GradientLayoutProps = {
   color: string
-  children: JSX.Element[]
+  children: JSX.Element
   image: string
   subtitle: string
   title: string
