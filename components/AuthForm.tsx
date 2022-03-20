@@ -26,14 +26,14 @@ const AuthForm: FC<{ mode: mode }> = ({ mode }) => {
             onChange={e => handleChange(e)}
           />
           <Input
-            id='firstName'
+            id='firstname'
             placeholder='firstName'
             type='text'
             onChange={e => handleChange(e)}
           />{' '}
           <Input
             id='lastname'
-            placeholder='lastname'
+            placeholder='lastName'
             type='text'
             onChange={e => handleChange(e)}
           />{' '}

@@ -39,15 +39,14 @@ export const useForm = (mode: Mode) => {
     router.push('/')
   }
   const handleChange = (e: SyntheticEvent) => {
-    console.log(e.target)
     const { id, value } = e.target as HTMLInputElement
     if (id === 'email') {
       setEmail(value)
     } else if (id === 'password') {
       setPassword(value)
-    } else if (id === 'name') {
+    } else if (id === 'firstname') {
       setFirstName(value)
-    } else if (id === 'lastName') {
+    } else if (id === 'lastname') {
       setLastName(value)
     }
   }
