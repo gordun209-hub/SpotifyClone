@@ -1,8 +1,6 @@
 import {
   Box,
-  Center,
   Divider,
-  Link,
   LinkBox,
   LinkOverlay,
   List,
@@ -11,46 +9,10 @@ import {
 } from '@chakra-ui/layout'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
-import {
-  MdFavorite,
-  MdHome,
-  MdLibraryMusic,
-  MdPlaylistAdd,
-  MdSearch
-} from 'react-icons/md'
 
+import { musicMenu, navMenu } from '.././lib/navMusicMenu'
 import { usePlaylist } from '../lib/hooks'
-import type { TnavMenu } from '../types/type'
 
-const navMenu: TnavMenu[] = [
-  {
-    name: 'Home',
-    icon: MdHome,
-    route: '/'
-  },
-  {
-    name: 'Search',
-    icon: MdSearch,
-    route: '/search'
-  },
-  {
-    name: 'Library',
-    icon: MdLibraryMusic,
-    route: '/library'
-  }
-]
-const musicMenu = [
-  {
-    name: 'Create Playlist',
-    icon: MdPlaylistAdd,
-    route: '/'
-  },
-  {
-    name: 'Favorite',
-    icon: MdFavorite,
-    route: '/favorites'
-  }
-]
 const Sidebar = () => {
   const { playlists } = usePlaylist()
   return (
@@ -101,7 +63,7 @@ const Sidebar = () => {
         <Divider color='gray.800' />
         <Box height={'66%'} overflowY='auto' paddingY='20px'>
           <List spacing={2}>
-            {playlists.map((playlist: any) => (
+            {playlists?.map(playlist => (
               <ListItem key={playlist.id} paddingX='20px'>
                 <LinkBox>
                   <NextLink

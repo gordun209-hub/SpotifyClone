@@ -16,3 +16,4 @@ export type TArtistData = {
   name: string
   songs: TSong[]
 }
+export type mode = 'signin' | 'signup'
