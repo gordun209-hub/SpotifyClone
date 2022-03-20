@@ -2,16 +2,20 @@ import { Box } from '@chakra-ui/layout'
 import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { Song } from '@prisma/client'
 import { useStoreActions } from 'easy-peasy'
+import { FC } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsFillPlayFill } from 'react-icons/bs'
 
 import { formatDate, formatTime } from '../lib/formatters'
 
-const SongTable = ({ songs }) => {
+type TProps = {
+  songs: Song[]
+}
+const SongTable: FC<TProps> = ({ songs }) => {
   console.log(songs, 'songs')
   const playSongs = useStoreActions((store: any) => store.changeActiveSongs)
   const setActiveSong = useStoreActions((store: any) => store.changeActiveSong)
-  const handlePlay = (activeSong?) => {
+  const handlePlay = (activeSong?: Song) => {
     setActiveSong(activeSong || songs[0])
     playSongs(songs)
   }

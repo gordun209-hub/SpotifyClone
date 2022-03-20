@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import { Box, Flex, Text } from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/react'
 
@@ -31,6 +30,7 @@ const GradientLayout = ({
           <Image
             boxSize='160px'
             boxShadow='2xl'
+            alt='image'
             src={image}
             borderRadius={roundImage ? '100%' : '3px'}
           />

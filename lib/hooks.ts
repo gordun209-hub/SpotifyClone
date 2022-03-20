@@ -27,27 +27,37 @@ export const useForm = (mode: Mode) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const router = useRouter()
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    console.log(email, password)
-    await auth(mode, { email, password })
+    await auth(mode, { email, password, lastName, firstName })
     setIsLoading(false)
     router.push('/')
   }
   const handleChange = (e: SyntheticEvent) => {
-    const { type, value } = e.target as HTMLInputElement
-    if (type === 'email') {
+    console.log(e.target)
+    const { id, value } = e.target as HTMLInputElement
+    if (id === 'email') {
       setEmail(value)
-    } else if (type === 'password') {
+    } else if (id === 'password') {
       setPassword(value)
+    } else if (id === 'name') {
+      setFirstName(value)
+    } else if (id === 'lastName') {
+      setLastName(value)
     }
   }
+
   return {
     isLoading,
     handleSubmit,
-    handleChange
+    handleChange,
+    email,
+    password,
+    lastName
   }
 }

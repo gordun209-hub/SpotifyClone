@@ -14,15 +14,29 @@ const AuthForm: FC<{ mode: mode }> = ({ mode }) => {
       <Box padding='50px' bg='gray.900' borderRadius='6px'>
         <form onSubmit={handleSubmit}>
           <Input
+            id='email'
             placeholder='email'
             type='email'
             onChange={e => handleChange(e)}
           />
           <Input
+            id='password'
             placeholder='password'
             type='password'
             onChange={e => handleChange(e)}
           />
+          <Input
+            id='firstName'
+            placeholder='firstName'
+            type='text'
+            onChange={e => handleChange(e)}
+          />{' '}
+          <Input
+            id='lastname'
+            placeholder='lastname'
+            type='text'
+            onChange={e => handleChange(e)}
+          />{' '}
           <Button
             type='submit'
             sx={{

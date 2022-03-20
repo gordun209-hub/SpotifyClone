@@ -11,8 +11,9 @@ import {
   RangeSliderTrack,
   Text
 } from '@chakra-ui/react'
+import { Song } from '@prisma/client'
 import { useStoreActions } from 'easy-peasy'
-import { useEffect, useRef, useState } from 'react'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import ReactHowler from 'react-howler'
 import {
   MdOutlinePauseCircleFilled,
@@ -25,10 +26,11 @@ import {
 
 import { formatTime } from '../lib/formatters'
 
-const Player = ({ songs, activeSong }) => {
-  const soundRef = useRef(null)
+const Player = ({ songs, activeSong }: { songs: Song[]; activeSong: Song }) => {
+  //! change if error
+  const soundRef = useRef(null) as unknown as MutableRefObject<ReactHowler>
   const [playing, setPlaying] = useState(false)
-  const [index, setIndex] = useState(
+  const [index, setIndex] = useState<number>(
     songs.findIndex(s => s.id === activeSong.id)
   )
   const [seek, setSeek] = useState(0.0)
@@ -42,15 +44,17 @@ const Player = ({ songs, activeSong }) => {
     setActiveSong(songs[index])
   }, [index, setActiveSong, songs])
   useEffect(() => {
-    let timerId
+    //! change if error
+    let timerId = 0
     if (playing && !isSeeking) {
       const f = () => {
-        setSeek(soundRef.current.seek())
+        setSeek(soundRef?.current?.seek())
         timerId = requestAnimationFrame(f)
       }
       timerId = requestAnimationFrame(f)
       return () => cancelAnimationFrame(timerId)
     }
+
     cancelAnimationFrame(timerId)
   }, [playing, isSeeking])
   useEffect(() => {
@@ -71,8 +75,10 @@ const Player = ({ songs, activeSong }) => {
       return state ? state - 1 : songs.length - 1
     })
   }
+  //TODO fix
+
   const nextSong = () => {
-    setIndex(state => {
+    setIndex((state: any) => {
       if (shuffle) {
         const next = Math.floor(Math.random() * songs.length)
         if (next === state) {
@@ -95,8 +101,8 @@ const Player = ({ songs, activeSong }) => {
     const songDuration = soundRef.current.duration()
     setDuration(songDuration)
   }
-  const onSeek = (e: any[]) => {
-    setSeek(parseFloat(e[0]))
+  const onSeek = (e: number[]) => {
+    setSeek(Number(e[0]))
     soundRef.current.seek(e[0])
   }
   return (

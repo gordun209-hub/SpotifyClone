@@ -1,5 +1,5 @@
 import { Playlist as p } from '@prisma/client'
-import { GetServerSidePropsContext, NextApiRequest, NextPage } from 'next'
+import { NextApiRequest, NextPage } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 
 import GradientLayout from '../../components/gradientLayout'
@@ -24,11 +24,15 @@ const Playlist: NextPage<{ playlist: p }> = ({ playlist }) => {
   )
 }
 export default Playlist
+// write type for getServerSideProps
 
-export const getServerSideProps: GetServerSidePropsContext<
-  ParsedUrlQuery,
-  NextRequest
-> = async ({ query, req }: { query: ParsedUrlQuery; req: NextApiRequest }) => {
+export const getServerSideProps = async ({
+  query,
+  req
+}: {
+  query: ParsedUrlQuery
+  req: NextApiRequest
+}) => {
   let user
   try {
     user = validateToken(req.cookies.TRAX_ACCESS_TOKEN) as {
