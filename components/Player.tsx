@@ -175,7 +175,7 @@ const Player = ({ songs, activeSong }) => {
           </Box>
           <Box width={'80%'}>
             <RangeSlider
-              max={duration ? duration.toFixed(2) : 0}
+              max={duration ? (duration.toFixed(2) as unknown as number) : 0}
               aria-label={['min', 'max']}
               step={0.1}
               min={0}
