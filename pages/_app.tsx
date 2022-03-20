@@ -1,10 +1,12 @@
 import 'reset-css'
 
 import { ChakraProvider, extendTheme } from '@chakra-ui/react' //Import Component type
+import { StoreProvider } from 'easy-peasy'
 import type { NextComponentType } from 'next'
 import type { AppProps } from 'next/app'
 
 import PlayerLayout from '../components/PlayerLayout'
+import { store } from '../lib/store'
 
 //Add custom appProp type with using union in type
 type CustomAppProps = AppProps & {
@@ -38,15 +40,18 @@ const theme = extendTheme({
     }
   }
 })
+
 const MyApp = ({ Component, pageProps }: CustomAppProps) => (
   <ChakraProvider theme={theme}>
-    {Component.authPage ? (
-      <Component {...pageProps} />
-    ) : (
-      <PlayerLayout>
+    <StoreProvider store={store}>
+      {Component.authPage ? (
         <Component {...pageProps} />
-      </PlayerLayout>
-    )}
+      ) : (
+        <PlayerLayout>
+          <Component {...pageProps} />
+        </PlayerLayout>
+      )}
+    </StoreProvider>
   </ChakraProvider>
 )
 

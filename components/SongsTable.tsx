@@ -1,11 +1,19 @@
 import { Box } from '@chakra-ui/layout'
 import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { useStoreActions } from 'easy-peasy'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsFillPlayFill } from 'react-icons/bs'
 
 import { formatDate, formatTime } from '../lib/formatters'
 
 const SongTable = ({ songs }) => {
+  console.log(songs, 'songs')
+  const playSongs = useStoreActions((store: any) => store.changeActiveSongs)
+  const setActiveSong = useStoreActions((store: any) => store.changeActiveSong)
+  const handlePlay = (activeSong?) => {
+    setActiveSong(activeSong || songs[0])
+    playSongs(songs)
+  }
   return (
     <Box bg='transparent' color={'white'}>
       <Box padding={'10px'} marginBottom={'20px'}>
@@ -16,6 +24,7 @@ const SongTable = ({ songs }) => {
             isRound={true}
             icon={<BsFillPlayFill fontSize={'30px'} />}
             aria-label={'play-btn'}
+            onClick={() => handlePlay()}
           />
         </Box>
         <Table variant={'unstyled'}>
@@ -33,16 +42,17 @@ const SongTable = ({ songs }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {songs?.map((song, i) => (
+            {songs.map((song, i) => (
               <Tr
                 key={song?.id}
-                cursor='cursor'
+                cursor='pointer'
                 sx={{
-                  transition: 'all 0.2s ease-in-out',
+                  transition: 'all .3s ',
                   '&:hover': {
-                    backgroundColor: 'rgba(255,255,255,0.1)'
+                    bg: 'rgba(255,255,255,0.1)'
                   }
                 }}
+                onClick={() => handlePlay(song)}
               >
                 <Td>{i + 1}</Td>
                 <Td>{song.name}</Td>
